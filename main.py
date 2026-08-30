@@ -29,8 +29,16 @@ class KnowledgeGraph:
         return node
 
     def add_edge(self, prereq_id, dep_id):
-        if prereq_id in self.nodes and dep_id in self.nodes:
-            self.nodes[prereq_id].add_dependent(self.nodes[dep_id])
+        if prereq_id == dep_id:
+            raise ValueError("A node cannot be its own prerequisite.")
+
+        if prereq_id not in self.nodes:
+            raise ValueError(f"Prerequisite node '{prereq_id}' does not exist.")
+
+        if dep_id not in self.nodes:
+            raise ValueError(f"Dependent node '{dep_id}' does not exist.")
+
+        self.nodes[prereq_id].add_dependent(self.nodes[dep_id])
 
     def display_graph(self):
         print("=== V1 Cognitive Knowledge Graph ===\n")
