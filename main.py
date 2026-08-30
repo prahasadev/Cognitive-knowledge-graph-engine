@@ -7,8 +7,11 @@ class KnowledgeNode:
         self.dependents = []
 
     def add_dependent(self, target_node):
-        self.dependents.append(target_node)
-        target_node.prerequisites.append(self)
+        if target_node not in self.dependents:
+            self.dependents.append(target_node)
+
+        if self not in target_node.prerequisites:
+            target_node.prerequisites.append(self)
 
     def __repr__(self):
         return f"[{self.name} | Score: {self.score}]"
