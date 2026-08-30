@@ -18,6 +18,9 @@ class KnowledgeGraph:
         self.nodes = {}
 
     def add_node(self, node_id, name, score=0.0):
+        if node_id in self.nodes:
+            raise ValueError(f"Node ID '{node_id}' already exists.")
+
         node = KnowledgeNode(node_id, name, score)
         self.nodes[node_id] = node
         return node
