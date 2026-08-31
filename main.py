@@ -22,7 +22,10 @@ class KnowledgeGraph:
 
     def add_node(self, node_id, name, score=0.0):
         if node_id in self.nodes:
-            raise ValueError(f"Node ID '{node_id}' already exists.")
+           raise ValueError(f"Node ID '{node_id}' already exists.")
+
+        if not 0 <= score <= 100:
+           raise ValueError("Score must be between 0 and 100.")
 
         node = KnowledgeNode(node_id, name, score)
         self.nodes[node_id] = node
