@@ -31,6 +31,11 @@ class KnowledgeGraph:
         self.nodes[node_id] = node
         return node
 
+    def get_node(self, node_id):
+        if node_id not in self.nodes:
+            raise ValueError(f"Node ID '{node_id}' does not exist.")
+        return self.nodes[node_id]
+
     def add_edge(self, prereq_id, dep_id):
         if prereq_id == dep_id:
             raise ValueError("A node cannot be its own prerequisite.")
