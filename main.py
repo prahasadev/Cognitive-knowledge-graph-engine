@@ -36,6 +36,13 @@ class KnowledgeGraph:
             raise ValueError(f"Node ID '{node_id}' does not exist.")
         return self.nodes[node_id]
 
+    def graph_summary(self):
+        total_nodes = len(self.nodes)
+        total_edges = sum(len(node.dependents) for node in self.nodes.values())
+
+        print(f"Total concepts: {total_nodes}")
+        print(f"Total relationships: {total_edges}")
+
     def add_edge(self, prereq_id, dep_id):
         if prereq_id == dep_id:
             raise ValueError("A node cannot be its own prerequisite.")
