@@ -43,6 +43,31 @@ class KnowledgeGraph:
         print(f"Total concepts: {total_nodes}")
         print(f"Total relationships: {total_edges}")
 
+    def validate_graph(self):
+        in_degree = {node_id: 0 for node_id in self.nodes}
+
+        for node in self.nodes.values():
+            for dependent in node.dependents:
+                in_degree[dependent.id] += 1
+
+        queue = [node_id for node_id in self.nodes if in_degree[node_id] == 0]
+        visited = 0
+
+        while queue:
+            node_id = queue.pop(0)
+            visited += 1
+
+            for dependent in self.nodes[node_id].dependents:
+                in_degree[dependent.id] -= 1
+
+                if in_degree[dependent.id] == 0:
+                    queue.append(dependent.id)
+
+        if visited != len(self.nodes):
+            raise ValueError("Graph contains a cycle.")
+
+        return True
+
     def add_edge(self, prereq_id, dep_id):
         if prereq_id == dep_id:
             raise ValueError("A node cannot be its own prerequisite.")
@@ -78,3 +103,5 @@ if __name__ == "__main__":
     kg.add_edge("der", "opt")
 
     kg.display_graph()
+    kg.validate_graph()
+    print("Graph is valid.")
