@@ -16,6 +16,12 @@ class KnowledgeNode:
     def __repr__(self):
         return f"[{self.name} | Score: {self.score}]"
 
+class Student:
+    def __init__(self, student_id, name):
+        self.id = student_id
+        self.name = name
+        self.assessments = {}
+
 class KnowledgeGraph:
     def __init__(self):
         self.nodes = {}
@@ -103,5 +109,3 @@ if __name__ == "__main__":
     kg.add_edge("der", "opt")
 
     kg.display_graph()
-    kg.validate_graph()
-    print("Graph is valid.")
