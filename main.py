@@ -22,6 +22,12 @@ class Student:
         self.name = name
         self.assessments = {}
 
+    def add_assessment(self, concept_id, score):
+        if not 0 <= score <= 100:
+            raise ValueError("Score must be between 0 and 100.")
+
+        self.assessments[concept_id] = score
+
 class KnowledgeGraph:
     def __init__(self):
         self.nodes = {}
@@ -87,7 +93,7 @@ class KnowledgeGraph:
         self.nodes[prereq_id].add_dependent(self.nodes[dep_id])
 
     def display_graph(self):
-        print("=== V1 Cognitive Knowledge Graph ===\n")
+        print("===  Cognitive Knowledge Graph ===\n")
         for node_id, node in self.nodes.items():
             prereqs = [p.name for p in node.prerequisites]
             deps = [d.name for d in node.dependents]
