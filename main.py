@@ -17,12 +17,16 @@ class KnowledgeNode:
         return f"[{self.name} | Score: {self.score}]"
 
 class Student:
-    def __init__(self, student_id, name):
+    def __init__(self, student_id, name, knowledge_graph):
         self.id = student_id
         self.name = name
+        self.knowledge_graph = knowledge_graph
         self.assessments = {}
 
     def add_assessment(self, concept_id, score):
+        if concept_id not in self.knowledge_graph.nodes:
+            raise ValueError(f"Concept '{concept_id}' does not exist.")
+
         if not 0 <= score <= 100:
             raise ValueError("Score must be between 0 and 100.")
 
@@ -93,7 +97,7 @@ class KnowledgeGraph:
         self.nodes[prereq_id].add_dependent(self.nodes[dep_id])
 
     def display_graph(self):
-        print("===  Cognitive Knowledge Graph ===\n")
+        print("=== Cognitive Knowledge Graph ===\n")
         for node_id, node in self.nodes.items():
             prereqs = [p.name for p in node.prerequisites]
             deps = [d.name for d in node.dependents]
