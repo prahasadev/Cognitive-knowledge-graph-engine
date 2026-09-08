@@ -32,6 +32,12 @@ class Student:
 
         self.assessments[concept_id] = score
 
+    def get_mastery(self, concept_id):
+        if concept_id not in self.assessments:
+            raise ValueError(f"No assessment found for concept '{concept_id}'.")
+
+       return self.assessments[concept_id]
+
 class KnowledgeGraph:
     def __init__(self):
         self.nodes = {}
