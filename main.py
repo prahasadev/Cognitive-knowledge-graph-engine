@@ -30,13 +30,16 @@ class Student:
         if not 0 <= score <= 100:
             raise ValueError("Score must be between 0 and 100.")
 
-        self.assessments[concept_id] = score
+        if concept_id not in self.assessments:
+            self.assessments[concept_id] = []
+
+        self.assessments[concept_id].append(score)
 
     def get_mastery(self, concept_id):
         if concept_id not in self.assessments:
             raise ValueError(f"No assessment found for concept '{concept_id}'.")
 
-       return self.assessments[concept_id]
+        return self.assessments[concept_id]
 
 class KnowledgeGraph:
     def __init__(self):
