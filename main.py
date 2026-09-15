@@ -42,6 +42,22 @@ class Student:
         scores = self.assessments[concept_id]
         return sum(scores) / len(scores)
 
+class DiagnosticEngine:
+    def __init__(self, student):
+        self.student = student
+        self.knowledge_graph = student.knowledge_graph
+
+    def find_weak_concepts(self, threshold=60):
+        weak_concepts = []
+
+        for concept_id in self.student.assessments:
+            mastery = self.student.get_mastery(concept_id)
+
+            if mastery < threshold:
+                weak_concepts.append(concept_id)
+
+        return weak_concepts
+
 class KnowledgeGraph:
     def __init__(self):
         self.nodes = {}
