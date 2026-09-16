@@ -57,6 +57,24 @@ class DiagnosticEngine:
                 weak_concepts.append(concept_id)
 
         return weak_concepts
+        
+    def trace_prerequisites(self, concept_id):
+        if concept_id not in self.knowledge_graph.nodes:
+            raise ValueError(f"Concept '{concept_id}' does not exist.")
+
+        weak_prerequisites = []
+
+        def trace(node):
+            for prerequisite in node.prerequisites:
+                if prerequisite.id in self.student.assessments:
+                    mastery = self.student.get_mastery(prerequisite.id)
+
+                    if mastery < 60:
+                        weak_prerequisites.append(prerequisite.id)
+
+                trace(prerequisite)
+        trace(self.knowledge_graph.nodes[concept_id])
+        return weak_prerequisites
 
 class KnowledgeGraph:
     def __init__(self):
