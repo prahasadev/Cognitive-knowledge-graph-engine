@@ -75,7 +75,18 @@ class DiagnosticEngine:
                 trace(prerequisite)
         trace(self.knowledge_graph.nodes[concept_id])
         return weak_prerequisites
+        
+    def recommend_study(self, concept_id):
+        if concept_id not in self.knowledge_graph.nodes:
+            raise ValueError(f"Concept '{concept_id}' does not exist.")
 
+        weak_prerequisites = self.trace_prerequisites(concept_id)
+
+        if weak_prerequisites:
+            return weak_prerequisites
+
+        return [concept_id]
+        
 class KnowledgeGraph:
     def __init__(self):
         self.nodes = {}
