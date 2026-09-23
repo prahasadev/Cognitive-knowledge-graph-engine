@@ -59,8 +59,29 @@ python test_student.py
 
 The tests verify student creation, assessment history, mastery calculation, and validation.
 
-### Future Development
+## V3 — Diagnostic Engine
 
-- V3: Diagnostic engine
+V3 adds diagnostic features that use student mastery and prerequisite relationships to identify what the student should study.
+
+### Features
+
+- Weak concept detection
+- Prerequisite weakness tracing
+- Study recommendations
+- Diagnostic engine tests
+
+### Example
+
+If a student is weak in Derivatives and also has weak prerequisite knowledge in Limits & Continuity, the engine recommends studying Limits & Continuity first.
+
+### Testing
+
+Run:
+
+python test_diagnostic.py
+
+The tests verify weak concept detection, prerequisite tracing, and study recommendations.
+
+### Future Development
 - V4: Research experiment
 - V5: Analysis and final system
