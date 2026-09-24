@@ -86,7 +86,22 @@ class DiagnosticEngine:
             return weak_prerequisites
 
         return [concept_id]
-        
+
+def create_synthetic_student(knowledge_graph, student_id, weak_concept):
+    student = Student(
+        student_id,
+        f"Student {student_id}",
+         knowledge_graph)
+
+    for concept_id in knowledge_graph.nodes:
+        if concept_id == weak_concept:
+            score = 40
+        else:
+            score = 85
+        student.add_assessment(concept_id, score)
+
+    return student 
+
 class KnowledgeGraph:
     def __init__(self):
         self.nodes = {}
