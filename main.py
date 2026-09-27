@@ -102,6 +102,19 @@ def create_synthetic_student(knowledge_graph, student_id, weak_concept):
 
     return student 
 
+def baseline_diagnosis(student):
+    lowest_concept = None
+    lowest_score = float("inf")
+
+    for concept_id, scores in student.assessments.items():
+        mastery = student.get_mastery(concept_id)
+
+        if mastery < lowest_score:
+            lowest_score = mastery
+            lowest_concept = concept_id
+
+    return lowest_concept
+    
 class KnowledgeGraph:
     def __init__(self):
         self.nodes = {}
