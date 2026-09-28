@@ -115,6 +115,22 @@ def baseline_diagnosis(student):
 
     return lowest_concept
     
+def graph_diagnosis(student):
+    engine = DiagnosticEngine(student)
+
+    weak_concepts = engine.find_weak_concepts()
+
+    if not weak_concepts:
+        return None
+
+    for concept_id in weak_concepts:
+        recommendations = engine.recommend_study(concept_id)
+
+        if recommendations:
+            return recommendations[0]
+
+    return None
+    
 class KnowledgeGraph:
     def __init__(self):
         self.nodes = {}
