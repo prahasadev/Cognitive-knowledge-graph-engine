@@ -101,6 +101,26 @@ def create_synthetic_student(knowledge_graph, student_id, weak_concept):
         student.add_assessment(concept_id, score)
 
     return student 
+    
+def create_diagnostic_test_student(knowledge_graph, student_id, weak_concept):
+    student = Student(
+        student_id,
+        f"Student {student_id}",
+        knowledge_graph)
+
+    for concept_id in knowledge_graph.nodes:
+        if concept_id == weak_concept:
+            score = 40
+        elif concept_id == "lim":
+            score = 55
+        elif concept_id == "der":
+            score = 50
+        else:
+            score = 80
+
+        student.add_assessment(concept_id, score)
+
+    return student
 
 def baseline_diagnosis(student):
     lowest_concept = None
